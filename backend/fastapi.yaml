@@ -24,9 +24,8 @@ spec:
         app: fastapi
     spec:
       containers:
-      - name: cicd-image
-        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/fastapi:latest
+      - name: fastapi
+        image: cicd-image
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        imagePullPolicy: Always
-
