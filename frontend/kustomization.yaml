@@ -1,11 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-patchesStrategicMerge:
-- web.yaml
 resources:
 - web.yaml
 images:
 - name: web-cicd
   newName: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/frontend
-  newTag: "v31"
-namespace: default
+  newTag: "v2"
