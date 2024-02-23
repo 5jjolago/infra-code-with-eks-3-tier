@@ -13,8 +13,8 @@ spec:
         app: myweb
     spec:
       containers:
-      - name: web-cicd
-        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/frontend:v1
+      - name: myweb
+        image: web-cicd
         ports:
         - containerPort: 80
         volumeMounts:
