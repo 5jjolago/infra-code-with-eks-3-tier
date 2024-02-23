@@ -7,5 +7,5 @@ resources:
 images:
 - name: cicd-image
   newName: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/fastapi
-  newTag: "v103"
+  newTag: "v104"
 namespace: default
