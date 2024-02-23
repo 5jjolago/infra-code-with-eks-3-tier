@@ -5,4 +5,4 @@ resources:
 images:
 - name: web-cicd
   newName: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/frontend
-  newTag: "v178"
+  newTag: "v179"
