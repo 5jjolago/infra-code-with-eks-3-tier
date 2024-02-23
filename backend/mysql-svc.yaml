@@ -4,6 +4,6 @@ metadata:
   name: mysql-svc
 spec:
   type: ExternalName
-  externalName: mysql.cd2mgo42smp1.ap-northeast-2.rds.amazonaws.com
+  externalName: db.rdsendpoint.com
   ports:
   - port: 3306
