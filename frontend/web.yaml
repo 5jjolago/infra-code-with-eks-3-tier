@@ -1,8 +1,7 @@
-# web yaml
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
-  name: myweb-deploy
+  name: myweb-daemonset
 spec:
   selector:
     matchLabels:
@@ -18,21 +17,22 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name : nginx-conf
+        - name: nginx-conf
           mountPath: /etc/nginx/conf
         - name: nginx-logs
           mountPath: /var/log/nginx
       - name: filebeat
-        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:latest 
+        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:latest
         volumeMounts:
         - name: nginx-logs
           mountPath: /var/log/nginx
       volumes:
-        - name : nginx-conf
+        - name: nginx-conf
           configMap:
             name: nginx-conf
         - name: nginx-logs
           emptyDir: {}
+
 
 
 ---
