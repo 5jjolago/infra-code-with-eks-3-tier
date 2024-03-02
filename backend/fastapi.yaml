@@ -4,6 +4,9 @@ metadata:
   name: fastapi-svc
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ap-northeast-2:062061726924:certificate/d1c0d3b8-f607-485a-88c9-419fc0ef6d4d
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
 spec:
   selector:
     app: fastapi
