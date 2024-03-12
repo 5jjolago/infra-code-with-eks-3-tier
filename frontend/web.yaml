@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: Deployemnt
+kind: Deployment  # 오타 수정
 metadata:
-  name: myweb-deploy
+  name: myweb-daemonset
 spec:
   selector:
     matchLabels:
@@ -18,7 +18,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: nginx-conf
-          mountPath: /etc/nginx/conf
+          mountPath: /etc/nginx/conf.d  # 경로 수정이 필요할 수 있습니다. 기본적으로 nginx 설정은 /etc/nginx/conf.d 내에 위치합니다.
         - name: nginx-logs
           mountPath: /var/log/nginx
         resources:
@@ -39,6 +39,20 @@ spec:
       volumes:
       - name: nginx-conf
         configMap:
-          name: nginx-conf  # 여기서는 존재하는 ConfigMap의 이름이어야 합니다.
+          name: nginx-conf
       - name: nginx-logs
-        emptyDir: {}  # 일시적인 데이터 저장을 위한 emptyDir 볼륨
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myweb-svc
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+spec:
+  selector:
+    app: myweb
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort

@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: monitoring
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:062061726924:certificate/d1c0d3b8-f607-485a-88c9-419fc0ef6d4d
+    alb.ingress.kubernetes.io/ssl-redirect: '443' # 443 redirect
+    alb.ingress.kubernetes.io/group.name: 'ozzorago-ingress-group'
+spec:
+  ingressClassName: alb
+  rules:
+  - host: prometheus.nalraon.kr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-server
+            port:
+              number: 80
+  - host: grafana.nalraon.kr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
