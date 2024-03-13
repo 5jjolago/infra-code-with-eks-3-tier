@@ -13,10 +13,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi
-  annotations:
-		# Kube-downscaler
-		downscaler/downtimePeriod: "Mon-Fri 19:00-20:00 Asia/Seoul"
-		downscaler/minReplicas: 1
 spec:
   selector:
     matchLabels:
@@ -36,6 +32,6 @@ spec:
         resources:
           limits:
             cpu: "500m"
-          requests: 
+          requests:
             cpu: "200m"
 
