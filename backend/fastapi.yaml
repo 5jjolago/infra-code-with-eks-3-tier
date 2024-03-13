@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels:
       app: fastapi
-  #replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -41,6 +41,6 @@ spec:
         resources:
           limits:
             cpu: "500m"
-          requests: 
+          requests:
             cpu: "200m"
 
