@@ -11,6 +11,15 @@ spec:
       labels:
         app: myweb
     spec:
+      nodeSelector:
+        intent: apps
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule    
+          labelSelector:
+            matchLabels:
+              app: inflate-weight  
       containers:
       - name: myweb
         image: web-cicd

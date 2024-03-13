@@ -23,6 +23,15 @@ spec:
       labels:
         app: fastapi
     spec:
+      nodeSelector:
+        intent: apps
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: capacity-spread
+          whenUnsatisfiable: DoNotSchedule    
+          labelSelector:
+            matchLabels:
+              app: inflate-weight  
       containers:
       - name: fastapi
         image: cicd-image
