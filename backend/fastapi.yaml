@@ -13,11 +13,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi
+
 spec:
   selector:
     matchLabels:
       app: fastapi
-  #replicas: 2
+  replicas: 2
   template:
     metadata:
       labels:
@@ -32,6 +33,6 @@ spec:
         resources:
           limits:
             cpu: "500m"
-          requests: 
+          requests:
             cpu: "200m"
 
