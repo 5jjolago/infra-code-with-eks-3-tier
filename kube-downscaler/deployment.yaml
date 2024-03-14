@@ -22,7 +22,7 @@ spec:
         image: hjacobs/kube-downscaler:23.2.0
         args:
         # dry run by default, remove to perform downscaling
-        - --dry-run
+        # - --dry-run
         # run every minute
         # - --debug
         - --interval=60
