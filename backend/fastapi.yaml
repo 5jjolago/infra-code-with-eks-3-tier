@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels:
       app: fastapi
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -26,12 +26,12 @@ spec:
       nodeSelector:
         intent: apps
       topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule    
-          labelSelector:
-            matchLabels:
-              app: inflate-weight  
+      - maxSkew: 1
+        topologyKey: capacity-spread
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: inflate-weight
       containers:
       - name: fastapi
         image: cicd-image
