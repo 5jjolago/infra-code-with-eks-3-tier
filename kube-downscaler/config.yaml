@@ -4,4 +4,5 @@ metadata:
   name: kube-downscaler
 data:
   # downscale for non-work hours
-  DEFAULT_UPTIME: "Mon-Fri 07:30-19:30 ASia/Seoul"
+  DEFAULT_UPTIME: "always"
+  DEFAULT_DOWNTIME: "Mon-Fri 21:30-23:30 ASia/Seoul"

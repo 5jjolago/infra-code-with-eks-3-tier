@@ -13,8 +13,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi
-  annotations:
-    downscaler/exclude: "true"
 spec:
   selector:
     matchLabels:
