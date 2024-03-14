@@ -15,7 +15,7 @@ metadata:
   name: fastapi
   annotations:
     downscaler/exclude: "true"
-    downscaler/uptime: Mon-Fri 09:00-20:30 Asia/Seoul
+    downscaler/uptime: Mon-Fri 09:00-19:30 Asia/Seoul
 spec:
   selector:
     matchLabels:
