@@ -5,7 +5,7 @@ metadata:
   namespace: default # 필요에 따라 적절한 네임스페이스로 변경하세요
   annotations:
     downscaler/downtime-replicas: "1"
-    downscaler/uptime: "Mon-Fri 09:00-13:00 Asia/Seoul"
+    downscaler/uptime: "always"
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
