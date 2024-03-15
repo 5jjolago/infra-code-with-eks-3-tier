@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myweb-deployment
+  name: myweb
 spec:
   selector:
     matchLabels:
@@ -11,15 +11,15 @@ spec:
       labels:
         app: myweb
     spec:
-      nodeSelector:
-        intent: apps
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule    
-          labelSelector:
-            matchLabels:
-              app: inflate-weight  
+      # nodeSelector:
+      #   intent: apps
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: capacity-spread
+      #     whenUnsatisfiable: DoNotSchedule    
+      #     labelSelector:
+      #       matchLabels:
+      #         app: inflate-weight  
       containers:
       - name: myweb
         image: web-cicd
