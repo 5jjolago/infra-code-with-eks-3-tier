@@ -13,6 +13,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: fastapi
+  # annotations:
+#   downscaler/exclude: "true"
 spec:
   strategy:
     canary:
@@ -29,7 +31,7 @@ spec:
   selector:
     matchLabels:
       app: fastapi
-  replicas: 5
+  # replicas: 5
   template:
     metadata:
       labels:
