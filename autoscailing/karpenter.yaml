@@ -19,10 +19,14 @@ spec:
     subnetSelector:
       karpenter.sh/discovery: ozzorago-eks-tEFOFGqb
   requirements:
+    - key: kubernetes.io/os
+      operator: In
+      values:
+      - linux
     - key: kubernetes.io/arch
       operator: In
       values:
-      - arm64
+      - amd64
     - key: karpenter.sh/capacity-type
       operator: In
       values:
@@ -35,8 +39,4 @@ spec:
       operator: Gt
       values:
       - "2"
-    - key: capacity-spread
-      operator: In
-      values:
-      - "1"  
 

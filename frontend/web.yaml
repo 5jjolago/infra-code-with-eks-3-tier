@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myweb-deployment
+  name: myweb
 spec:
   selector:
     matchLabels:
@@ -11,15 +11,15 @@ spec:
       labels:
         app: myweb
     spec:
-      nodeSelector:
-        intent: apps
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: capacity-spread
-          whenUnsatisfiable: DoNotSchedule    
-          labelSelector:
-            matchLabels:
-              app: inflate-weight  
+      # nodeSelector:
+      #   intent: apps
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: capacity-spread
+      #     whenUnsatisfiable: DoNotSchedule    
+      #     labelSelector:
+      #       matchLabels:
+      #         app: inflate-weight  
       containers:
       - name: myweb
         image: web-cicd
@@ -32,9 +32,11 @@ spec:
           mountPath: /var/log/nginx
         resources:
           requests:
-            cpu: "100m"
+            cpu: "10m"
+            memory: "20Mi"
           limits:
-            cpu: "200m"
+            cpu: "20m"
+            memory: "40Mi"
       - name: filebeat
         image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:hero
         volumeMounts:
@@ -42,9 +44,11 @@ spec:
           mountPath: /var/log/nginx
         resources:
           requests:
-            cpu: "250m"
+            cpu: "10m"
+            memory: "66Mi"
           limits:
-            cpu: "500m"
+            cpu: "20m"
+            memory: "120Mi"
       volumes:
       - name: nginx-conf
         configMap:
