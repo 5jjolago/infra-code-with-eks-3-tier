@@ -9,13 +9,25 @@ spec:
   - port: 8080
     targetPort: 8080
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: fastapi
   # annotations:
 #   downscaler/exclude: "true"
 spec:
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: {}
+      - setWeight: 40
+      - pause: {duration: 10}
+      - setWeight: 60
+      - pause: {duration: 10}
+      - setWeight: 80
+      - pause: {duration: 10}
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: fastapi

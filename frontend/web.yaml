@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myweb-daemonset
+  name: myweb-deployment
 spec:
   selector:
     matchLabels:
@@ -36,7 +36,7 @@ spec:
           limits:
             cpu: "200m"
       - name: filebeat
-        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:latest
+        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:arm
         volumeMounts:
         - name: nginx-logs
           mountPath: /var/log/nginx
