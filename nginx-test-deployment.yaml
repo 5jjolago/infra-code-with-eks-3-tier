@@ -4,6 +4,8 @@ metadata:
   name: nginx-test-deployment
   labels:
     app: nginx
+  # annotations:
+#   downscaler/exclude: "true"
 spec:
   replicas: 10
   selector:

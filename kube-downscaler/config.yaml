@@ -5,4 +5,4 @@ metadata:
 data:
   # downscale for non-work hours
   DEFAULT_UPTIME: "always"
-  DEFAULT_DOWNTIME: "Mon-Fri 23:30-24:00 ASia/Seoul"
+  DEFAULT_DOWNTIME: "Mon-Sun 00:30-08:30 ASia/Seoul"
