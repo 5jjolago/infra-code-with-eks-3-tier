@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: myweb-daemonset-hpa
+  name: myweb
   namespace: default # 필요에 따라 적절한 네임스페이스로 변경하세요
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: myweb-daemonset
+    name: myweb
   minReplicas: 1
   maxReplicas: 10
   metrics:
