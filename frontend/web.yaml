@@ -11,41 +11,50 @@ spec:
       labels:
         app: myweb
     spec:
+      # nodeSelector:
+      #   intent: apps
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: capacity-spread
+      #     whenUnsatisfiable: DoNotSchedule    
+      #     labelSelector:
+      #       matchLabels:
+      #         app: inflate-weight  
       containers:
-        - name: myweb
-          image: web-cicd
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: nginx-conf
-              mountPath: /etc/nginx/conf
-            - name: nginx-logs
-              mountPath: /var/log/nginx
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "20Mi"
-            limits:
-              cpu: "20m"
-              memory: "40Mi"
-        - name: filebeat
-          image: jeeeyoung/filebeat:arm2
-          volumeMounts:
-            - name: nginx-logs
-              mountPath: /var/log/nginx
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "66Mi"
-            limits:
-              cpu: "20m"
-              memory: "120Mi"
-      volumes:
+      - name: myweb
+        image: web-cicd
+        ports:
+        - containerPort: 80
+        volumeMounts:
         - name: nginx-conf
-          configMap:
-            name: nginx-conf # 여기서는 존재하는 ConfigMap의 이름이어야 합니다.
+          mountPath: /etc/nginx/conf
         - name: nginx-logs
-          emptyDir: {} # 일시적인 데이터 저장을 위한 emptyDir 볼륨
+          mountPath: /var/log/nginx
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "20Mi"
+          limits:
+            cpu: "20m"
+            memory: "40Mi"
+      - name: filebeat
+        image: 062061726924.dkr.ecr.ap-northeast-2.amazonaws.com/filebeat:log
+        volumeMounts:
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "66Mi"
+          limits:
+            cpu: "20m"
+            memory: "120Mi"
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf  # 여기서는 존재하는 ConfigMap의 이름이어야 합니다.
+      - name: nginx-logs
+        emptyDir: {}  # 일시적인 데이터 저장을 위한 emptyDir 볼륨
 
 ---
 apiVersion: v1
@@ -58,6 +67,6 @@ spec:
   selector:
     app: myweb
   ports:
-    - port: 80
-      targetPort: 80
+  - port: 80
+    targetPort: 80
   type: NodePort
