@@ -6,8 +6,20 @@ spec:
   selector:
     app: fastapi
   ports:
-    - port: 8080
-      targetPort: 8080
+  - port: 8080
+    targetPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: fastapi-svc-preview
+spec:
+  selector:
+    app: fastapi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
@@ -16,35 +28,34 @@ metadata:
   # annotations:
 #   downscaler/exclude: "true"
 spec:
-  strategy:
-    canary:
-      steps:
-        - setWeight: 20
-        - pause: {}
-        - setWeight: 40
-        - pause: { duration: 10 }
-        - setWeight: 60
-        - pause: { duration: 10 }
-        - setWeight: 80
-        - pause: { duration: 10 }
-  revisionHistoryLimit: 2
+  replicas: 3
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: fastapi
-  replicas: 3
   template:
     metadata:
       labels:
         app: fastapi
     spec:
       containers:
-        - name: fastapi
-          image: cicd-image
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
-          resources:
-            limits:
-              cpu: "40m"
-            requests:
-              cpu: "40m"
+      - name: fastapi
+        image: cicd-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "40m"
+          requests:
+            cpu: "40m"
+  strategy:
+    blueGreen:
+      #activeService는 이전의 배포된 Blue 서비스
+      activeService: fastapi-svc
+
+      #previewService는 새롭게 배포될 Green 서비스
+      previewService: fastapi-svc-preview
+
+      #autoPromotioEnabled 옵션은 Blue/Green 배포를 자동으로 진행할 것인지 여부. false 옵션을 사용해 수동으로 지정
+      autoPromotionEnabled: true
