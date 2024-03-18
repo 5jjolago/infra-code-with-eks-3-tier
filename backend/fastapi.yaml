@@ -18,8 +18,8 @@ spec:
     app: fastapi
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8080
+    targetPort: 8080
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
