@@ -44,10 +44,10 @@ spec:
           mountPath: /var/log/nginx
         resources:
           requests:
-            cpu: "10m"
+            cpu: "100m"
             memory: "66Mi"
           limits:
-            cpu: "20m"
+            cpu: "200m"
             memory: "120Mi"
       volumes:
       - name: nginx-conf
