@@ -44,17 +44,19 @@ spec:
           mountPath: /var/log/nginx
         resources:
           requests:
-            cpu: "100m"
-            memory: "66Mi"
-          limits:
+            # cpu: "100m"
             cpu: "200m"
-            memory: "120Mi"
+          #   memory: "66Mi"
+          limits:
+            cpu: "500m"
+          #   cpu: "200m"
+      #   memory: "120Mi"
       volumes:
       - name: nginx-conf
         configMap:
-          name: nginx-conf  # 여기서는 존재하는 ConfigMap의 이름이어야 합니다.
+          name: nginx-conf # 여기서는 존재하는 ConfigMap의 이름이어야 합니다.
       - name: nginx-logs
-        emptyDir: {}  # 일시적인 데이터 저장을 위한 emptyDir 볼륨
+        emptyDir: {} # 일시적인 데이터 저장을 위한 emptyDir 볼륨
 
 ---
 apiVersion: v1
